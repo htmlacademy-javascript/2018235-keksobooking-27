@@ -117,12 +117,12 @@ const createArray = (array) => {
 // функция получения цены
 const getOfferPrice = () => getRandomInt() * 100;
 
-const locationLat = getRandomNumber(MINLAT, MAXLAT, 5);
-const locationLng = getRandomNumber(MINLNG, MAXLNG, 5);
-
 // функция по созданию объекта
 const createAdvert = () => {
   const AvatarCount = count();
+  const locationLat = getRandomNumber(MINLAT, MAXLAT, 5);
+  const locationLng = getRandomNumber(MINLNG, MAXLNG, 5);
+
   return {
     author: {
       avatar: `img/avatars/user${AvatarCount < 9 ? '0' : ''}${AvatarCount + 1}.png`,
