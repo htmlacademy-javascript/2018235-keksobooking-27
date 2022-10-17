@@ -10,7 +10,6 @@ const getRandomInt = (min = 1, max = 10) => {
   return Math.floor(Math.random() * (upper - lower + 1)) + lower;
 };
 
-export { getRandomInt };
 
 // получаем случайной число с точкой из диапазона
 const getRandomNumber = (min, max, signs) => {
@@ -22,10 +21,9 @@ const getRandomNumber = (min, max, signs) => {
   const upper = (Math.max(min, max));
 
   const number = Math.random() * (upper - lower) + lower;
-  return +number.toFixed(signs);
+  return Number(number.toFixed(signs));
 };
 
-export { getRandomNumber };
 
 // Получение индекса по порядку для avatar
 const getIndex = () => {
@@ -35,12 +33,10 @@ const getIndex = () => {
   };
 };
 
-export { getIndex };
 
 // функция получения случайного индекса элемента массива
 const getRandomElement = (elements) => elements[getRandomInt(0, elements.length - 1)];
 
-export { getRandomElement };
 
 // функция по созданию нового массива случайной длины на основе известного массива
 const createArray = (array) => {
@@ -53,9 +49,8 @@ const createArray = (array) => {
   return makeUniq(newItems);
 };
 
-export { createArray };
 
 // функция получения цены
-const getOfferPrice = () => getRandomInt() * 100;
+const getOfferPrice = () => getRandomInt() * 1000;
 
-export { getOfferPrice };
+export { getRandomInt, getRandomNumber, getIndex, getRandomElement, createArray, getOfferPrice };

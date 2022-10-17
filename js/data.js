@@ -17,7 +17,7 @@ const TYPES = [
   'palace',
   'flat',
   'house',
-  'bungalow ',
+  'bungalow',
   'hotel',
 ];
 
@@ -43,16 +43,16 @@ const FEATURES = [
 ];
 
 const DESCRIPTIONS = [
-  'Spacious hall and big bedroom. Jacuzzi bath and home movie theater',
-  'The most stylish acomodation. Every room has unique design',
-  'Not lux, but there is hot water and central heating',
-  'Modern and cozy. It is fully equipped - kitchen, wc, shower, sleeping bed for two, dining table',
-  'ALL rooms have just been refurnished, equipped with ceiling fans',
-  'A beautiful building, lovingly furnished. Children are very welcome',
-  'A cozy flat with a sofa, a seating area, a flat-screen TV with cable channels',
-  'A luxury serviced apartment with hotel-like services. All apartments are fully furnished and include a fully-equipped kitchen',
-  'All rooms come with a flat-screen TV and a safety deposit box. There are several well-known attractions nearby',
-  'In your room you will find a desk, a flat-screen TV, a private bathroom',
+  // 'Spacious hall and big bedroom. Jacuzzi bath and home movie theater',
+  // 'The most stylish acomodation. Every room has unique design',
+  // 'Not lux, but there is hot water and central heating',
+  // 'Modern and cozy. It is fully equipped - kitchen, wc, shower, sleeping bed for two, dining table',
+  // 'ALL rooms have just been refurnished, equipped with ceiling fans',
+  // 'A beautiful building, lovingly furnished. Children are very welcome',
+  // 'A cozy flat with a sofa, a seating area, a flat-screen TV with cable channels',
+  // 'A luxury serviced apartment with hotel-like services. All apartments are fully furnished and include a fully-equipped kitchen',
+  // 'All rooms come with a flat-screen TV and a safety deposit box. There are several well-known attractions nearby',
+  // 'In your room you will find a desk, a flat-screen TV, a private bathroom',
 ];
 
 const PHOTOS = [
