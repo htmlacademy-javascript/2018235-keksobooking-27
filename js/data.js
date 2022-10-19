@@ -17,7 +17,7 @@ const TYPES = [
   'palace',
   'flat',
   'house',
-  'bungalow ',
+  'bungalow',
   'hotel',
 ];
 
