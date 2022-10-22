@@ -55,15 +55,6 @@ advertsList.forEach(({ offer, author }) => {
     }
   };
 
-  const getDescription = () => {
-    const description = offer.description;
-    if (description) {
-      return description;
-    } else {
-      advertElement.querySelector('.popup__description').style.display = 'none';
-    }
-  };
-
   const getPhotos = () => {
     const photosContainer = advertElement.querySelector('.popup__photos');
     const photoItem = photosContainer.querySelector('.popup__photo');
@@ -83,7 +74,6 @@ advertsList.forEach(({ offer, author }) => {
 
   };
 
-
   advertElement.querySelector('.popup__title').textContent = offer.title;
   advertElement.querySelector('.popup__text--address').textContent = offer.address;
   advertElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
@@ -91,7 +81,13 @@ advertsList.forEach(({ offer, author }) => {
   advertElement.querySelector('.popup__text--capacity').textContent = getCapacity();
   advertElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   advertElement.querySelector('.popup__features').content = getFeatures();
-  advertElement.querySelector('.popup__description').textContent = getDescription();
+
+  if (offer.description) {
+    advertElement.querySelector('.popup__description').textContent = offer.description;
+  } else {
+    advertElement.querySelector('.popup__description').style.display = 'none';
+  }
+
   advertElement.querySelector('.popup__photos').content = getPhotos();
   advertElement.querySelector('.popup__avatar').src = author.avatar;
   advertListFragment.append(advertElement);
