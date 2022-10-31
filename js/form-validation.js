@@ -34,7 +34,7 @@ function onRoomNumberChange() {
 roomNumber.addEventListener('change', onCapacityChange);
 capacity.addEventListener('change', onRoomNumberChange);
 
-// валидация цены в зависимости от типа жилья
+// валидация цены в зависимости от типа жилья и создание слайдера для цены
 
 const type = document.querySelector('#type');
 const price = document.querySelector('#price');
@@ -49,14 +49,45 @@ const priceSettings = {
 const validatePriceSetting = () => price.value >= priceSettings[type.value];
 const getPriceErrorMessage = () => `Цена не может быть меньше ${priceSettings[type.value]} для этого типа жилья`;
 
-pristine.addValidator(price, validatePriceSetting, getPriceErrorMessage);
+const sliderElement = document.querySelector('.ad-form__slider');
+
+noUiSlider.create(sliderElement, {
+  range: {
+    min: 0,
+    max: 100000,
+  },
+  start: priceSettings[type.value],
+  step: 1,
+  connect: 'lower',
+  format: {
+    to: function (value) {
+      return value.toFixed(0);
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  },
+});
+
+sliderElement.noUiSlider.on('update', () => {
+  price.value = sliderElement.noUiSlider.get();
+});
 
 function onTypeChange() {
   price.placeholder = priceSettings[type.value];
+  sliderElement.noUiSlider.updateOptions({
+    start: price.placeholder,
+  });
   pristine.validate(price);
 }
 
+function onInputChange() {
+  sliderElement.noUiSlider.set(price.value);
+}
+
 type.addEventListener('change', onTypeChange);
+price.addEventListener('change', onInputChange);
+pristine.addValidator(price, validatePriceSetting, getPriceErrorMessage);
 
 // валидация времени заезда и выезда
 

@@ -7,11 +7,11 @@ const disableActiveState = () => {
   advertForm.classList.add('ad-form--disabled');
   mapFilter.classList.add('map__filters--disabled');
   advertFormElements.forEach((formElement) => {
-    formElement.setAttribute('disabled', 'disabled');
+    formElement.setAttribute('disabled', 'true');
   });
 
   for (const filterElement of mapFilterElements) {
-    filterElement.setAttribute('disabled', 'disabled');
+    filterElement.setAttribute('disabled', 'true');
   }
 };
 
@@ -27,4 +27,6 @@ const enableActiveState = () => {
 };
 
 disableActiveState();
-enableActiveState();
+
+export { enableActiveState };
+

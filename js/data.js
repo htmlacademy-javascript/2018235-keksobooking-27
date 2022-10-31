@@ -73,13 +73,13 @@ const count = getIndex();
 
 // функция по созданию объекта
 const createAdvert = () => {
-  const AvatarCount = count();
+  const avatarCount = count();
   const locationLat = getRandomNumber(MINLAT, MAXLAT, 5);
   const locationLng = getRandomNumber(MINLNG, MAXLNG, 5);
 
   return {
     author: {
-      avatar: `img/avatars/user${AvatarCount < 9 ? '0' : ''}${AvatarCount + 1}.png`,
+      avatar: `img/avatars/user${avatarCount < 9 ? '0' : ''}${avatarCount + 1}.png`,
     },
     offer: {
       title: getRandomElement(TITLES),
