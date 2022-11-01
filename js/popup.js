@@ -1,14 +1,11 @@
 import { createAdverts } from './data.js';
 
-const mapCanvas = document.querySelector('#map-canvas');
 const advertTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const advertsList = createAdverts();
-const advertElementsList = []; // массив объявлений для отрисовки
 
-const advertListFragment = document.createDocumentFragment();
-
-advertsList.forEach(({ offer, author }) => {
+const createAdvertPopup = (advert) => {
+  const { offer, author } = advert;
   const advertElement = advertTemplate.cloneNode(true);
 
   const getType = () => {
@@ -90,8 +87,9 @@ advertsList.forEach(({ offer, author }) => {
 
   advertElement.querySelector('.popup__photos').content = getPhotos();
   advertElement.querySelector('.popup__avatar').src = author.avatar;
-  advertListFragment.append(advertElement);
-  advertElementsList.push(advertElement);
-});
 
-mapCanvas.append(advertElementsList[5]);
+  return advertElement;
+};
+
+
+export { advertsList, createAdvertPopup };
