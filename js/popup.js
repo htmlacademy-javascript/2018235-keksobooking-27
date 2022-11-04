@@ -1,8 +1,4 @@
-import { createAdverts } from './data.js';
-
 const advertTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-const advertsList = createAdverts();
 
 const createAdvertPopup = (advert) => {
   const { offer, author } = advert;
@@ -37,7 +33,7 @@ const createAdvertPopup = (advert) => {
     const featureItems = offer.features;
     const featureListContainer = advertElement.querySelector('.popup__features');
     const featureList = advertElement.querySelectorAll('.popup__feature');
-    if (featureItems.length) {
+    if (offer.features) {
       const modifiers = featureItems.map((featureItem) => `popup__feature--${featureItem}`);
 
       featureList.forEach((feature) => {
@@ -58,7 +54,7 @@ const createAdvertPopup = (advert) => {
     const photoList = offer.photos;
     photosContainer.innerHTML = '';
 
-    if (photoList.length) {
+    if (offer.photos) {
       photoList.forEach((photo) => {
         const newPhoto = photoItem.cloneNode(true);
         newPhoto.src = photo;
@@ -92,4 +88,4 @@ const createAdvertPopup = (advert) => {
 };
 
 
-export { advertsList, createAdvertPopup };
+export { createAdvertPopup };

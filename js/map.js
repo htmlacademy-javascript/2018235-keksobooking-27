@@ -1,10 +1,10 @@
-import { enableActiveState } from './form-control.js';
-import { advertsList, createAdvertPopup } from './popup.js';
+import { enableActiveState } from './page-control.js';
+import { createAdvertPopup } from './popup.js';
 
-
-const DEFAULTLAT = 35.6895.toFixed(5);
-const DEFAULTLNG = 139.692.toFixed(5);
+const DEFAULTLAT = 35.68950;
+const DEFAULTLNG = 139.69200;
 const address = document.querySelector('#address');
+const ADVERTS_COUNT = 10;
 
 address.value = `${DEFAULTLAT}, ${DEFAULTLNG}`;
 
@@ -61,19 +61,21 @@ const pinIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
-advertsList.forEach((advert) => {
-  const marker = L.marker(
-    {
-      lat: advert.location.lat,
-      lng: advert.location.lng,
-    },
-    {
-      icon: pinIcon,
-    },
-  );
-  marker
-    .addTo(map)
-    .bindPopup(createAdvertPopup(advert));
-});
+const createAdvertPins = (adverts) => {
+  adverts.slice(0, ADVERTS_COUNT).forEach((advert) => {
+    const marker = L.marker(
+      {
+        lat: advert.location.lat,
+        lng: advert.location.lng,
+      },
+      {
+        icon: pinIcon,
+      },
+    );
+    marker
+      .addTo(map)
+      .bindPopup(createAdvertPopup(advert));
+  });
+};
 
-export { resetMainMarker };
+export { resetMainMarker, createAdvertPins };
