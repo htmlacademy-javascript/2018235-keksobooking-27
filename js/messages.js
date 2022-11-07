@@ -16,26 +16,26 @@ const showSuccessMessage = () => {
   });
 };
 
-// сообщение об ошибке
+// сообщение об ошибке отправки
 const showErrorMessage = () => {
-  const successMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-  const successMessage = successMessageTemplate.cloneNode('true');
-  const errorButton = successMessage.querySelector('.error__button');
+  const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+  const errorMessage = errorMessageTemplate.cloneNode('true');
+  const errorButton = errorMessage.querySelector('.error__button');
 
-  document.body.append(successMessage);
+  document.body.append(errorMessage);
 
   errorButton.addEventListener('click', () => {
-    successMessage.remove();
+    errorMessage.remove();
   });
 
-  successMessage.addEventListener('click', () => {
-    successMessage.remove();
+  errorMessage.addEventListener('click', () => {
+    errorMessage.remove();
   });
 
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
-      successMessage.remove();
+      errorMessage.remove();
     }
   });
 };

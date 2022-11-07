@@ -1,6 +1,6 @@
 import { sendData } from './request.js';
 import { resetMainMarker, clearMarkerGroup } from './map.js';
-import { showSuccessMessage, showErrorMessage } from './util.js';
+import { showSuccessMessage, showErrorMessage } from './messages.js';
 
 const advertForm = document.querySelector('.ad-form');
 const submitButton = document.querySelector('.ad-form__submit');
