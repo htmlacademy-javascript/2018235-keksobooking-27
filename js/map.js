@@ -53,6 +53,11 @@ const resetMainMarker = () => {
     lat: DEFAULTLAT,
     lng: DEFAULTLNG,
   });
+  map.setView({
+    lat: DEFAULTLAT,
+    lng: DEFAULTLNG,
+  }, 10);
+  address.value = `${DEFAULTLAT}, ${DEFAULTLNG}`;
 };
 
 const pinIcon = L.icon({
@@ -60,6 +65,8 @@ const pinIcon = L.icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
+
+const markerGroup = L.layerGroup().addTo(map);
 
 const createAdvertPins = (adverts) => {
   adverts.slice(0, ADVERTS_COUNT).forEach((advert) => {
@@ -73,9 +80,13 @@ const createAdvertPins = (adverts) => {
       },
     );
     marker
-      .addTo(map)
+      .addTo(markerGroup)
       .bindPopup(createAdvertPopup(advert));
   });
 };
 
-export { resetMainMarker, createAdvertPins };
+const clearMarkerGroup = () => {
+  markerGroup.clearLayers();
+};
+
+export { resetMainMarker, createAdvertPins, clearMarkerGroup };
