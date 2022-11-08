@@ -1,4 +1,10 @@
+import { sendData } from './request.js';
+import { resetMainMarker, clearMarkerGroup } from './map.js';
+import { showSuccessMessage, showErrorMessage } from './messages.js';
+
 const advertForm = document.querySelector('.ad-form');
+const submitButton = document.querySelector('.ad-form__submit');
+const resetButton = document.querySelector('.ad-form__reset');
 
 const pristine = new Pristine(advertForm, {
   classTo: 'ad-form__element',
@@ -85,6 +91,10 @@ function onInputChange() {
   sliderElement.noUiSlider.set(price.value);
 }
 
+function resetSlider() {
+  sliderElement.noUiSlider.set(priceSettings[type.value]);
+}
+
 type.addEventListener('change', onTypeChange);
 price.addEventListener('change', onInputChange);
 pristine.addValidator(price, validatePriceSetting, getPriceErrorMessage);
@@ -107,7 +117,47 @@ function onTimeoutChange() {
 timein.addEventListener('change', onTimeinChange);
 timeout.addEventListener('change', onTimeoutChange);
 
+//Отправка формы
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикуется';
+};
+
+const unBlockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+const resetForm = () => {
+  advertForm.reset();
+  resetMainMarker();
+  resetSlider();
+  clearMarkerGroup();
+};
+
 advertForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  pristine.validate();
+
+  const isValid = pristine.validate();
+  if (isValid) {
+    blockSubmitButton();
+    sendData(
+      () => {
+        resetForm();
+        unBlockSubmitButton();
+        showSuccessMessage();
+      },
+      () => {
+        showErrorMessage();
+        unBlockSubmitButton();
+      },
+      new FormData(evt.target));
+  }
 });
+
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetForm();
+});
+
+
