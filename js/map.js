@@ -1,5 +1,6 @@
-import { enableActiveState } from './page-control.js';
+import { enableForm } from './page-control.js';
 import { createAdvertPopup } from './popup.js';
+import { compareAdverts } from './filter.js';
 
 const DEFAULTLAT = 35.68950;
 const DEFAULTLNG = 139.69200;
@@ -10,7 +11,7 @@ address.value = `${DEFAULTLAT}, ${DEFAULTLNG}`;
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    enableActiveState();
+    enableForm();
   })
   .setView({
     lat: DEFAULTLAT,
@@ -69,7 +70,8 @@ const pinIcon = L.icon({
 const markerGroup = L.layerGroup().addTo(map);
 
 const createAdvertPins = (adverts) => {
-  adverts.slice(0, ADVERTS_COUNT).forEach((advert) => {
+  markerGroup.clearLayers();
+  adverts.slice().sort(compareAdverts).slice(0, ADVERTS_COUNT).forEach((advert) => {
     const marker = L.marker(
       {
         lat: advert.location.lat,
