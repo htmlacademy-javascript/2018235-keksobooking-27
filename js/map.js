@@ -1,6 +1,5 @@
 import { enableForm } from './page-control.js';
 import { createAdvertPopup } from './popup.js';
-import { compareAdverts } from './filter.js';
 
 const DEFAULTLAT = 35.68950;
 const DEFAULTLNG = 139.69200;
@@ -71,7 +70,7 @@ const markerGroup = L.layerGroup().addTo(map);
 
 const createAdvertPins = (adverts) => {
   markerGroup.clearLayers();
-  adverts.slice().sort(compareAdverts).slice(0, ADVERTS_COUNT).forEach((advert) => {
+  adverts.slice(0, ADVERTS_COUNT).forEach((advert) => {
     const marker = L.marker(
       {
         lat: advert.location.lat,

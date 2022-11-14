@@ -1,6 +1,7 @@
 import { sendData } from './request.js';
 import { resetMainMarker, clearMarkerGroup } from './map.js';
 import { showSuccessMessage, showErrorMessage } from './messages.js';
+import { reserFilter } from './filter.js';
 
 const advertForm = document.querySelector('.ad-form');
 const submitButton = document.querySelector('.ad-form__submit');
@@ -133,6 +134,7 @@ const resetForm = () => {
   resetMainMarker();
   resetSlider();
   clearMarkerGroup();
+  reserFilter();
 };
 
 advertForm.addEventListener('submit', (evt) => {

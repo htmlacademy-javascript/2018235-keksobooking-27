@@ -3,94 +3,70 @@ const housingType = document.querySelector('#housing-type');
 const housingPrice = document.querySelector('#housing-price');
 const housingRooms = document.querySelector('#housing-rooms');
 const housingGuests = document.querySelector('#housing-guests');
-const mapFeatures = document.querySelector('#housing-features');
+const mapFeatures = document.querySelectorAll('.map__checkbox');
 
+const filterFields = [housingType, housingPrice, housingRooms, housingGuests, ...mapFeatures];
 
-const Default = {
-  TYPE: 'flat',
-  PRICE: 'low',
-  ROOMS: '2',
-  GUESTS: '3',
-  FEATURES: ['wifi']
+const reserFilter = () => {
+  mapFilter.reset();
 };
 
-const geAdvertRank = (advert) => {
-  const { offer } = advert;
-
-  const getPriceValue = () => {
-    if (offer.price < 10000) {
-      return 'low';
-    }
-    if (offer.price > 10000 && offer.price < 50000) {
-      return 'middle';
-    }
-    if (offer.price > 50000) {
-      return 'high';
-    }
-  };
-
-  const priceValue = getPriceValue();
-
-  let rank = 0;
-
-  if (offer.type === (housingType.value || Default.TYPE)) {
-    rank += 10;
+const filterByType = (advert) => {
+  if (housingType.value === 'any') {
+    return true;
   }
-  if (priceValue === (housingPrice.value || Default.PRICE)) {
-    rank += 8;
+  return advert.offer.type === housingType.value;
+};
+
+const filterByPrice = (advert) => {
+  switch (housingPrice.value) {
+    case 'any':
+      return true;
+    case 'low':
+      return advert.offer.price <= 10000;
+    case 'middle':
+      return advert.offer.price > 10000 && advert.offer.price <= 50000;
+    case 'high':
+      return advert.offer.price > 50000;
   }
-  if (String(offer.rooms) === (housingRooms.value || Default.ROOMS)) {
-    rank += 6;
+};
+
+const filterByRooms = (advert) => {
+  if (housingRooms.value === 'any') {
+    return true;
   }
-  if (String(offer.guests) === (housingGuests.value || Default.GUESTS)) {
-    rank += 6;
+  return advert.offer.rooms === Number(housingRooms.value);
+};
+
+const filterByGuests = (advert) => {
+  if (housingGuests.value === 'any') {
+    return true;
   }
+  return advert.offer.guests === Number(housingGuests.value);
+};
+
+const filterByFeatures = (advert) => {
   const checkedFeatures = mapFilter.querySelectorAll('[type = "checkbox"]:checked');
-  const features = offer.features ? offer.features : Default.FEATURES;
+  if (!checkedFeatures.length) {
+    return true;
+  }
+  if (!advert.offer.features) {
+    return false;
+  }
 
-  checkedFeatures.forEach((checkedFeature) => {
-    if (features.includes(checkedFeature.value)) {
-      rank += 1;
-    }
-  });
-  return rank;
+  const checkedValues = Array.from(checkedFeatures).map((checkedFeature) => checkedFeature.value);
+
+  return checkedValues.every((checkedValue) => advert.offer.features.includes(checkedValue));
 };
 
-const compareAdverts = (advertA, advertB) => {
-  const rankA = geAdvertRank(advertA);
-  const rankB = geAdvertRank(advertB);
+const filterAdverts = (advert) => filterByType(advert) && filterByPrice(advert) && filterByRooms(advert) && filterByGuests(advert) && filterByFeatures(advert);
 
-  return rankB - rankA;
-};
-
-const onTypeChange = (cb) => {
-  housingType.addEventListener('change', () => {
-    cb();
-  });
-};
-
-const onPriceChange = (cb) => {
-  housingPrice.addEventListener('change', () => {
-    cb();
+const onFilterChange = (cb) => {
+  filterFields.forEach((filterField) => {
+    filterField.addEventListener('change', () => {
+      cb();
+    });
   });
 };
 
-const onRoomsChange = (cb) => {
-  housingRooms.addEventListener('change', () => {
-    cb();
-  });
-};
-
-const onGuestsChange = (cb) => {
-  housingGuests.addEventListener('change', () => {
-    cb();
-  });
-};
-
-const onFeaturesChange = (cb) => {
-  mapFeatures.addEventListener('change', () => {
-    cb();
-  });
-};
-export { compareAdverts, onTypeChange, onPriceChange, onRoomsChange, onGuestsChange, onFeaturesChange };
-
+export { filterAdverts, onFilterChange, reserFilter, };
