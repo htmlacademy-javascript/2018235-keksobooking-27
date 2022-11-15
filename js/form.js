@@ -2,6 +2,7 @@ import { sendData } from './request.js';
 import { resetMainMarker, clearMarkerGroup } from './map.js';
 import { showSuccessMessage, showErrorMessage } from './messages.js';
 import { reserFilter } from './filter.js';
+import { resetImages } from './image-download.js';
 
 const advertForm = document.querySelector('.ad-form');
 const submitButton = document.querySelector('.ad-form__submit');
@@ -135,6 +136,7 @@ const resetForm = () => {
   resetSlider();
   clearMarkerGroup();
   reserFilter();
+  resetImages();
 };
 
 advertForm.addEventListener('submit', (evt) => {
