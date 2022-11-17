@@ -46,7 +46,5 @@ const enableActiveState = () => {
   }
 };
 
-disableActiveState();
-
-export { enableActiveState, enableForm, enableFilter };
+export { enableActiveState, enableForm, enableFilter, disableActiveState };
 

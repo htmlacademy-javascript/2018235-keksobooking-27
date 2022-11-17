@@ -1,8 +1,4 @@
 import { sendData } from './request.js';
-import { resetMainMarker, clearMarkerGroup } from './map.js';
-import { showSuccessMessage, showErrorMessage } from './messages.js';
-import { reserFilter } from './filter.js';
-import { resetImages } from './image-download.js';
 
 const advertForm = document.querySelector('.ad-form');
 const submitButton = document.querySelector('.ad-form__submit');
@@ -132,36 +128,35 @@ const unBlockSubmitButton = () => {
 
 const resetForm = () => {
   advertForm.reset();
-  resetMainMarker();
   resetSlider();
-  clearMarkerGroup();
-  reserFilter();
-  resetImages();
 };
 
-advertForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
+const setUserFormSubmit = (onSuccess, onFail) => {
+  advertForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
 
-  const isValid = pristine.validate();
-  if (isValid) {
-    blockSubmitButton();
-    sendData(
-      () => {
-        resetForm();
-        unBlockSubmitButton();
-        showSuccessMessage();
-      },
-      () => {
-        showErrorMessage();
-        unBlockSubmitButton();
-      },
-      new FormData(evt.target));
-  }
-});
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+          unBlockSubmitButton();
+        },
+        () => {
+          onFail();
+          unBlockSubmitButton();
+        },
+        new FormData(evt.target));
+    }
+  });
+};
 
-resetButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  resetForm();
-});
+const setResetButton = (reset) => {
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    reset();
+  });
+};
 
-
+export { setUserFormSubmit, resetForm, setResetButton };
