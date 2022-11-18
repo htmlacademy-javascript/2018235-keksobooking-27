@@ -35,16 +35,6 @@ const enableForm = () => {
     formElement.removeAttribute('disabled');
   });
 };
-const enableActiveState = () => {
-  advertForm.classList.remove('ad-form--disabled');
-  mapFilter.classList.remove('map__filters--disabled');
-  advertFormElements.forEach((formElement) => {
-    formElement.removeAttribute('disabled');
-  });
-  for (const filterElement of mapFilterElements) {
-    filterElement.removeAttribute('disabled');
-  }
-};
 
-export { enableActiveState, enableForm, enableFilter, disableActiveState };
+export { enableForm, enableFilter, disableActiveState };
 

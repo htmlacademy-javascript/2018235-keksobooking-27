@@ -46,6 +46,7 @@ const createAdvertPopup = (advert) => {
     } else {
       featureListContainer.style.display = 'none';
     }
+    return featureList;
   };
 
   const getPhotos = () => {
@@ -64,7 +65,7 @@ const createAdvertPopup = (advert) => {
     } else {
       photosContainer.style.display = 'none';
     }
-
+    return photosContainer;
   };
 
   advertElement.querySelector('.popup__title').textContent = offer.title;

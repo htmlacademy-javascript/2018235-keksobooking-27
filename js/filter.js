@@ -7,7 +7,7 @@ const mapFeatures = document.querySelectorAll('.map__checkbox');
 
 const filterFields = [housingType, housingPrice, housingRooms, housingGuests, ...mapFeatures];
 
-const reserFilter = () => {
+const resetFilter = () => {
   mapFilter.reset();
 };
 
@@ -69,4 +69,4 @@ const onFilterChange = (cb) => {
   });
 };
 
-export { filterAdverts, onFilterChange, reserFilter, };
+export { filterAdverts, onFilterChange, resetFilter };

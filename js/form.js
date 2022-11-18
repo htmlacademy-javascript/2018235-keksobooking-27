@@ -22,7 +22,7 @@ const capacityOption = {
 };
 
 const validateCapacity = () => capacityOption[roomNumber.value].includes(capacity.value);
-const getCapacityErrorMessage = () => 'количество гостей не может быть больше, чем количесвто комнат';
+const getCapacityErrorMessage = () => 'количество гостей не может быть больше, чем количество комнат';
 
 pristine.addValidator(capacity, validateCapacity, getCapacityErrorMessage);
 pristine.addValidator(roomNumber, validateCapacity, getCapacityErrorMessage);
