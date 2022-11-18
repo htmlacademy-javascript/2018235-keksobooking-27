@@ -1,7 +1,7 @@
 // сообщение об успешной отправке
 const showSuccessMessage = () => {
   const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-  const successMessage = successMessageTemplate.cloneNode('true');
+  const successMessage = successMessageTemplate.cloneNode(true);
   document.body.append(successMessage);
 
   successMessage.addEventListener('click', () => {
@@ -19,7 +19,7 @@ const showSuccessMessage = () => {
 // сообщение об ошибке отправки
 const showErrorMessage = () => {
   const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-  const errorMessage = errorMessageTemplate.cloneNode('true');
+  const errorMessage = errorMessageTemplate.cloneNode(true);
   const errorButton = errorMessage.querySelector('.error__button');
 
   document.body.append(errorMessage);

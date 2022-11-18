@@ -1,11 +1,11 @@
 import { createAdvertPopup } from './popup.js';
 
-const DEFAULTLAT = 35.68950;
-const DEFAULTLNG = 139.69200;
+const DEFAULT_LAT = 35.68950;
+const DEFAULT_LNG = 139.69200;
 const address = document.querySelector('#address');
 const ADVERTS_COUNT = 10;
 
-address.value = `${DEFAULTLAT}, ${DEFAULTLNG}`;
+address.value = `${DEFAULT_LAT}, ${DEFAULT_LNG}`;
 
 const map = L.map('map-canvas');
 const mapInit = (onInit) => {
@@ -13,8 +13,8 @@ const mapInit = (onInit) => {
     onInit();
   })
     .setView({
-      lat: DEFAULTLAT,
-      lng: DEFAULTLNG,
+      lat: DEFAULT_LAT,
+      lng: DEFAULT_LNG,
     }, 10);
 };
 
@@ -34,8 +34,8 @@ const mainPinIcon = L.icon({
 
 const mainMarker = L.marker(
   {
-    lat: DEFAULTLAT,
-    lng: DEFAULTLNG,
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
   },
   {
     draggable: true,
@@ -52,14 +52,14 @@ mainMarker.on('moveend', (evt) => {
 
 const resetMainMarker = () => {
   mainMarker.setLatLng({
-    lat: DEFAULTLAT,
-    lng: DEFAULTLNG,
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
   });
   map.setView({
-    lat: DEFAULTLAT,
-    lng: DEFAULTLNG,
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
   }, 10);
-  address.value = `${DEFAULTLAT}, ${DEFAULTLNG}`;
+  address.value = `${DEFAULT_LAT}, ${DEFAULT_LNG}`;
 };
 
 const pinIcon = L.icon({

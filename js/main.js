@@ -4,7 +4,7 @@ import { debounce } from './debounce.js';
 import { createAdvertPins, mapInit, resetMainMarker, clearMarkerGroup } from './map.js';
 import { setUserFormSubmit, resetForm, setResetButton } from './form.js';
 import { showAlert, showSuccessMessage, showErrorMessage } from './messages.js';
-import { onFilterChange, filterAdverts, reserFilter } from './filter.js';
+import { onFilterChange, filterAdverts, resetFilter } from './filter.js';
 import { resetImages } from './image-download.js';
 
 disableActiveState();
@@ -26,7 +26,7 @@ const resetUserData = () => {
   resetForm();
   resetMainMarker();
   clearMarkerGroup();
-  reserFilter();
+  resetFilter();
   resetImages();
 };
 
