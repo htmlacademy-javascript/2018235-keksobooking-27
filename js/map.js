@@ -1,4 +1,3 @@
-import { enableForm } from './page-control.js';
 import { createAdvertPopup } from './popup.js';
 
 const DEFAULTLAT = 35.68950;
@@ -8,14 +7,17 @@ const ADVERTS_COUNT = 10;
 
 address.value = `${DEFAULTLAT}, ${DEFAULTLNG}`;
 
-const map = L.map('map-canvas')
-  .on('load', () => {
-    enableForm();
+const map = L.map('map-canvas');
+const mapInit = (onInit) => {
+  map.on('load', () => {
+    onInit();
   })
-  .setView({
-    lat: DEFAULTLAT,
-    lng: DEFAULTLNG,
-  }, 10);
+    .setView({
+      lat: DEFAULTLAT,
+      lng: DEFAULTLNG,
+    }, 10);
+};
+
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -90,4 +92,4 @@ const clearMarkerGroup = () => {
   markerGroup.clearLayers();
 };
 
-export { resetMainMarker, createAdvertPins, clearMarkerGroup };
+export { resetMainMarker, createAdvertPins, clearMarkerGroup, mapInit };

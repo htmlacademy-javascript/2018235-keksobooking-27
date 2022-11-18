@@ -1,17 +1,40 @@
-import './form.js';
-import { enableFilter } from './page-control.js';
+import { enableFilter, disableActiveState, enableForm } from './page-control.js';
 import { getData } from './request.js';
-import { createAdvertPins } from './map.js';
-import { showAlert } from './messages.js';
-import { onFilterChange, filterAdverts } from './filter.js';
 import { debounce } from './debounce.js';
+import { createAdvertPins, mapInit, resetMainMarker, clearMarkerGroup } from './map.js';
+import { setUserFormSubmit, resetForm, setResetButton } from './form.js';
+import { showAlert, showSuccessMessage, showErrorMessage } from './messages.js';
+import { onFilterChange, filterAdverts, reserFilter } from './filter.js';
+import { resetImages } from './image-download.js';
+
+disableActiveState();
 
 const RENDER_DELAY = 500;
 
-getData((adverts) => {
-  createAdvertPins(adverts);
-  enableFilter();
-  onFilterChange(debounce(() => createAdvertPins(adverts.filter(filterAdverts)), RENDER_DELAY,));
-}, () => {
-  showAlert('Не удалось подключиться к серверу. Повторите попытку позже');
+mapInit(() => {
+  enableForm();
+  getData((adverts) => {
+    createAdvertPins(adverts);
+    enableFilter();
+    onFilterChange(debounce(() => createAdvertPins(adverts.filter(filterAdverts)), RENDER_DELAY,));
+  }, () => {
+    showAlert('Не удалось подключиться к серверу. Повторите попытку позже');
+  });
 });
+
+const resetUserData = () => {
+  resetForm();
+  resetMainMarker();
+  clearMarkerGroup();
+  reserFilter();
+  resetImages();
+};
+
+setUserFormSubmit(() => {
+  resetUserData();
+  showSuccessMessage();
+}, () => {
+  showErrorMessage();
+});
+
+setResetButton(resetUserData);
