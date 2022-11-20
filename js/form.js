@@ -9,8 +9,8 @@ const PRICE_SETTINGS = {
 };
 
 const advertForm = document.querySelector('.ad-form');
-const submitButton = document.querySelector('.ad-form__submit');
-const resetButton = document.querySelector('.ad-form__reset');
+const submitButtonElement = document.querySelector('.ad-form__submit');
+const resetButtonElement = document.querySelector('.ad-form__reset');
 
 const pristine = new Pristine(advertForm, {
   classTo: 'ad-form__element',
@@ -20,8 +20,8 @@ const pristine = new Pristine(advertForm, {
 
 // валидация количества комнат и количества гостей
 
-const capacity = advertForm.querySelector('#capacity');
-const roomNumber = advertForm.querySelector('#room_number');
+const capacityElement = advertForm.querySelector('#capacity');
+const roomNumberElement = advertForm.querySelector('#room_number');
 const capacityOption = {
   '1': '1',
   '2': ['2', '1'],
@@ -29,25 +29,25 @@ const capacityOption = {
   '100': '0',
 };
 
-const validateCapacity = () => capacityOption[roomNumber.value].includes(capacity.value);
+const validateCapacity = () => capacityOption[roomNumberElement.value].includes(capacityElement.value);
 const getCapacityErrorMessage = () => 'количество гостей не может быть больше, чем количество комнат';
 
-pristine.addValidator(capacity, validateCapacity, getCapacityErrorMessage);
-pristine.addValidator(roomNumber, validateCapacity, getCapacityErrorMessage);
+pristine.addValidator(capacityElement, validateCapacity, getCapacityErrorMessage);
+pristine.addValidator(roomNumberElement, validateCapacity, getCapacityErrorMessage);
 
-const onCapacityChange = () => pristine.validate(capacity);
-const onRoomNumberChange = () => pristine.validate(roomNumber);
+const onCapacityChange = () => pristine.validate(capacityElement);
+const onRoomNumberChange = () => pristine.validate(roomNumberElement);
 
-roomNumber.addEventListener('change', onCapacityChange);
-capacity.addEventListener('change', onRoomNumberChange);
+roomNumberElement.addEventListener('change', onCapacityChange);
+capacityElement.addEventListener('change', onRoomNumberChange);
 
 // валидация цены в зависимости от типа жилья и создание слайдера для цены
 
-const type = document.querySelector('#type');
-const price = document.querySelector('#price');
+const typeElement = document.querySelector('#type');
+const priceElement = document.querySelector('#price');
 
-const validatePriceSetting = () => price.value >= PRICE_SETTINGS[type.value];
-const getPriceErrorMessage = () => `Цена не может быть меньше ${PRICE_SETTINGS[type.value]} для этого типа жилья`;
+const validatePriceSetting = () => priceElement.value >= PRICE_SETTINGS[typeElement.value];
+const getPriceErrorMessage = () => `Цена не может быть меньше ${PRICE_SETTINGS[typeElement.value]} для этого типа жилья`;
 
 const sliderElement = document.querySelector('.ad-form__slider');
 
@@ -56,7 +56,7 @@ noUiSlider.create(sliderElement, {
     min: 0,
     max: 100000,
   },
-  start: PRICE_SETTINGS[type.value],
+  start: PRICE_SETTINGS[typeElement.value],
   step: 1,
   connect: 'lower',
   format: {
@@ -66,56 +66,56 @@ noUiSlider.create(sliderElement, {
 });
 
 sliderElement.noUiSlider.on('update', () => {
-  price.value = sliderElement.noUiSlider.get();
+  priceElement.value = sliderElement.noUiSlider.get();
 });
 
 const onTypeChange = () => {
-  price.placeholder = PRICE_SETTINGS[type.value];
+  priceElement.placeholder = PRICE_SETTINGS[typeElement.value];
   sliderElement.noUiSlider.updateOptions({
-    start: price.placeholder,
+    start: priceElement.placeholder,
   });
-  pristine.validate(price);
+  pristine.validate(priceElement);
 };
 
 const onInputChange = () => {
-  sliderElement.noUiSlider.set(price.value);
+  sliderElement.noUiSlider.set(priceElement.value);
 };
 
 const resetSlider = () => {
-  sliderElement.noUiSlider.set(PRICE_SETTINGS[type.value]);
+  sliderElement.noUiSlider.set(PRICE_SETTINGS[typeElement.value]);
 };
 
-type.addEventListener('change', onTypeChange);
-price.addEventListener('change', onInputChange);
-pristine.addValidator(price, validatePriceSetting, getPriceErrorMessage);
+typeElement.addEventListener('change', onTypeChange);
+priceElement.addEventListener('change', onInputChange);
+pristine.addValidator(priceElement, validatePriceSetting, getPriceErrorMessage);
 
 // валидация времени заезда и выезда
 
-const timein = advertForm.querySelector('#timein');
-const timeout = advertForm.querySelector('#timeout');
+const timeinElement = advertForm.querySelector('#timein');
+const timeoutElement = advertForm.querySelector('#timeout');
 
 const onTimeinChange = () => {
-  timeout.value = timein.value;
-  pristine.validate(timeout);
+  timeoutElement.value = timeinElement.value;
+  pristine.validate(timeoutElement);
 };
 
 const onTimeoutChange = () => {
-  timein.value = timeout.value;
-  pristine.validate(timein);
+  timeinElement.value = timeoutElement.value;
+  pristine.validate(timeinElement);
 };
 
-timein.addEventListener('change', onTimeinChange);
-timeout.addEventListener('change', onTimeoutChange);
+timeinElement.addEventListener('change', onTimeinChange);
+timeoutElement.addEventListener('change', onTimeoutChange);
 
 //Отправка формы
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = 'Публикуется';
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = 'Публикуется';
 };
 
 const unBlockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = 'Опубликовать';
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = 'Опубликовать';
 };
 
 const resetForm = () => {
@@ -145,7 +145,7 @@ const setUserFormSubmit = (onSuccess, onFail) => {
 };
 
 const setResetButton = (reset) => {
-  resetButton.addEventListener('click', (evt) => {
+  resetButtonElement.addEventListener('click', (evt) => {
     evt.preventDefault();
     reset();
   });
