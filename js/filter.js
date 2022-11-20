@@ -1,3 +1,7 @@
+const PRICE_VALUES = {
+  low: 10000,
+  high: 50000,
+};
 const mapFilter = document.querySelector('.map__filters');
 const housingType = document.querySelector('#housing-type');
 const housingPrice = document.querySelector('#housing-price');
@@ -23,11 +27,11 @@ const filterByPrice = (advert) => {
     case 'any':
       return true;
     case 'low':
-      return advert.offer.price <= 10000;
+      return advert.offer.price <= PRICE_VALUES.low;
     case 'middle':
-      return advert.offer.price > 10000 && advert.offer.price <= 50000;
+      return advert.offer.price > PRICE_VALUES.low && advert.offer.price <= PRICE_VALUES.high;
     case 'high':
-      return advert.offer.price > 50000;
+      return advert.offer.price > PRICE_VALUES.high;
   }
 };
 

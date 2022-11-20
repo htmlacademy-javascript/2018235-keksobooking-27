@@ -2,10 +2,10 @@ import { createAdvertPopup } from './popup.js';
 
 const DEFAULT_LAT = 35.68950;
 const DEFAULT_LNG = 139.69200;
-const address = document.querySelector('#address');
 const ADVERTS_COUNT = 10;
+const address = document.querySelector('#address');
 
-address.value = `${DEFAULT_LAT}, ${DEFAULT_LNG}`;
+address.value = `${DEFAULT_LAT.toFixed(5)}, ${DEFAULT_LNG.toFixed(5)}`;
 
 const map = L.map('map-canvas');
 const mapInit = (onInit) => {
@@ -59,7 +59,7 @@ const resetMainMarker = () => {
     lat: DEFAULT_LAT,
     lng: DEFAULT_LNG,
   }, 10);
-  address.value = `${DEFAULT_LAT}, ${DEFAULT_LNG}`;
+  address.value = `${DEFAULT_LAT.toFixed(5)}, ${DEFAULT_LNG.toFixed(5)}`;
 };
 
 const pinIcon = L.icon({
@@ -88,8 +88,4 @@ const createAdvertPins = (adverts) => {
   });
 };
 
-const clearMarkerGroup = () => {
-  markerGroup.clearLayers();
-};
-
-export { resetMainMarker, createAdvertPins, clearMarkerGroup, mapInit };
+export { resetMainMarker, createAdvertPins, mapInit };

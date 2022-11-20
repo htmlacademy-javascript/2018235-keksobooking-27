@@ -19,14 +19,9 @@ const createAdvertPopup = (advert) => {
 
   const getCapacity = () => {
     const guestsNumber = `${offer.guests} ${offer.guests === 1 ? 'гостя' : 'гостей'}`;
-    switch (true) {
-      case offer.rooms < 2:
-        return `${offer.rooms} комната для ${guestsNumber}`;
-      case offer.rooms < 5:
-        return `${offer.rooms} комнаты для ${guestsNumber}`;
-      default:
-        return `${offer.rooms} комнат для ${guestsNumber}`;
-    }
+
+    return offer.rooms === 1 ? `${offer.rooms} комната для ${guestsNumber}` :
+      `${offer.rooms} комнаты для ${guestsNumber}`;
   };
 
   const getFeatures = () => {
