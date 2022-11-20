@@ -3,27 +3,27 @@ const PRICE_VALUES = {
   high: 50000,
 };
 const mapFilter = document.querySelector('.map__filters');
-const housingType = document.querySelector('#housing-type');
-const housingPrice = document.querySelector('#housing-price');
-const housingRooms = document.querySelector('#housing-rooms');
-const housingGuests = document.querySelector('#housing-guests');
-const mapFeatures = document.querySelectorAll('.map__checkbox');
+const housingTypeElement = document.querySelector('#housing-type');
+const housingPriceElement = document.querySelector('#housing-price');
+const housingRoomsElement = document.querySelector('#housing-rooms');
+const housingGuestsElement = document.querySelector('#housing-guests');
+const mapFeatureElements = document.querySelectorAll('.map__checkbox');
 
-const filterFields = [housingType, housingPrice, housingRooms, housingGuests, ...mapFeatures];
+const filterFields = [housingTypeElement, housingPriceElement, housingRoomsElement, housingGuestsElement, ...mapFeatureElements];
 
 const resetFilter = () => {
   mapFilter.reset();
 };
 
 const filterByType = (advert) => {
-  if (housingType.value === 'any') {
+  if (housingTypeElement.value === 'any') {
     return true;
   }
-  return advert.offer.type === housingType.value;
+  return advert.offer.type === housingTypeElement.value;
 };
 
 const filterByPrice = (advert) => {
-  switch (housingPrice.value) {
+  switch (housingPriceElement.value) {
     case 'any':
       return true;
     case 'low':
@@ -36,29 +36,29 @@ const filterByPrice = (advert) => {
 };
 
 const filterByRooms = (advert) => {
-  if (housingRooms.value === 'any') {
+  if (housingRoomsElement.value === 'any') {
     return true;
   }
-  return advert.offer.rooms === Number(housingRooms.value);
+  return advert.offer.rooms === Number(housingRoomsElement.value);
 };
 
 const filterByGuests = (advert) => {
-  if (housingGuests.value === 'any') {
+  if (housingGuestsElement.value === 'any') {
     return true;
   }
-  return advert.offer.guests === Number(housingGuests.value);
+  return advert.offer.guests === Number(housingGuestsElement.value);
 };
 
 const filterByFeatures = (advert) => {
-  const checkedFeatures = mapFilter.querySelectorAll('[type = "checkbox"]:checked');
-  if (!checkedFeatures.length) {
+  const checkedFeatureElements = mapFilter.querySelectorAll('[type = "checkbox"]:checked');
+  if (!checkedFeatureElements.length) {
     return true;
   }
   if (!advert.offer.features) {
     return false;
   }
 
-  const checkedValues = Array.from(checkedFeatures).map((checkedFeature) => checkedFeature.value);
+  const checkedValues = Array.from(checkedFeatureElements).map((checkedFeature) => checkedFeature.value);
 
   return checkedValues.every((checkedValue) => advert.offer.features.includes(checkedValue));
 };

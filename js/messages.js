@@ -20,11 +20,11 @@ const showSuccessMessage = () => {
 const showErrorMessage = () => {
   const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
   const errorMessage = errorMessageTemplate.cloneNode(true);
-  const errorButton = errorMessage.querySelector('.error__button');
+  const errorButtonElement = errorMessage.querySelector('.error__button');
 
   document.body.append(errorMessage);
 
-  errorButton.addEventListener('click', () => {
+  errorButtonElement.addEventListener('click', () => {
     errorMessage.remove();
   });
 

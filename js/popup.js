@@ -5,11 +5,11 @@ const createAdvertPopup = (advert) => {
   const advertElement = advertTemplate.cloneNode(true);
 
   const getType = () => {
-    const typeList = document.querySelectorAll('option');
+    const typeListElements = document.querySelectorAll('option');
     const value = offer.type;
     let result;
 
-    typeList.forEach((type) => {
+    typeListElements.forEach((type) => {
       if (type.value === value) {
         result = type.textContent;
       }
@@ -26,12 +26,12 @@ const createAdvertPopup = (advert) => {
 
   const getFeatures = () => {
     const featureItems = offer.features;
-    const featureListContainer = advertElement.querySelector('.popup__features');
-    const featureList = advertElement.querySelectorAll('.popup__feature');
+    const featureListContainerElement = advertElement.querySelector('.popup__features');
+    const featureListElements = advertElement.querySelectorAll('.popup__feature');
     if (offer.features) {
       const modifiers = featureItems.map((featureItem) => `popup__feature--${featureItem}`);
 
-      featureList.forEach((feature) => {
+      featureListElements.forEach((feature) => {
         const modifier = feature.classList[1];
 
         if (!modifiers.includes(modifier)) {
@@ -39,28 +39,28 @@ const createAdvertPopup = (advert) => {
         }
       });
     } else {
-      featureListContainer.style.display = 'none';
+      featureListContainerElement.style.display = 'none';
     }
-    return featureList;
+    return featureListElements;
   };
 
   const getPhotos = () => {
-    const photosContainer = advertElement.querySelector('.popup__photos');
-    const photoItem = photosContainer.querySelector('.popup__photo');
+    const photosContainerElement = advertElement.querySelector('.popup__photos');
+    const photoItemElement = photosContainerElement.querySelector('.popup__photo');
     const photoList = offer.photos;
-    photosContainer.innerHTML = '';
+    photosContainerElement.innerHTML = '';
 
     if (offer.photos) {
       photoList.forEach((photo) => {
-        const newPhoto = photoItem.cloneNode(true);
+        const newPhoto = photoItemElement.cloneNode(true);
         newPhoto.src = photo;
-        photosContainer.append(newPhoto);
+        photosContainerElement.append(newPhoto);
       });
 
     } else {
-      photosContainer.style.display = 'none';
+      photosContainerElement.style.display = 'none';
     }
-    return photosContainer;
+    return photosContainerElement;
   };
 
   advertElement.querySelector('.popup__title').textContent = offer.title;
